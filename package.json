@@ -1,0 +1,55 @@
+{
+  "name": "mutation-helper",
+  "version": "1.0.0",
+  "description": "A collection of methods to mutate objects and arrays without modifying the source.",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "babel src -d build",
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "lint": "eslint src",
+    "lint:watch": "esw -w --clear src"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucapinelli/mutation-helper.git"
+  },
+  "keywords": [
+    "mutate",
+    "update",
+    "immutability",
+    "array",
+    "object",
+    "merge",
+    "set",
+    "get"
+  ],
+  "author": "Luca Pinelli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lucapinelli/mutation-helper/issues"
+  },
+  "homepage": "https://github.com/lucapinelli/mutation-helper#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "eslint": "^4.9.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jest": "^21.2.0",
+    "eslint-plugin-node": "^5.2.0",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "eslint-watch": "^3.1.3",
+    "jest": "^21.2.1"
+  },
+  "dependencies": {
+    "deepmerge": "^2.0.0"
+  }
+}

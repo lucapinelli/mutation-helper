@@ -1,0 +1,20 @@
+{
+    "passPerPreset": true,
+    "presets": [
+        "stage-0",
+        [
+            "env", {
+                "targets": {
+                  "node": "6.0",
+                  "browsers": [
+                    "chrome > 50",
+                    "firefox > 48",
+                    "IE > 10",
+                    "Safari > 8",
+                    "Opera > 40"
+                  ]
+                }
+            }
+        ]
+    ]
+}
