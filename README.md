@@ -174,7 +174,7 @@ import { sort } from 'mutation-helper';
 
 const source = ['this', 'is', 'a', 'test'];
 const updatedA = sort(source);
-const updatedB = sort(source, (a, b) => a < b);
+const updatedB = sort(source, (a, b) => a < b ? 1 : -1;
 
 console.log(source); // ['this', 'is', 'a', 'test']
 console.log(updatedA); // ['a', 'is', 'test', 'this']

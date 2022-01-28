@@ -19,7 +19,7 @@ const _getMetaPath = (field) => {
   field.split('.').forEach(item => {
     const indexes = item.match(/\[\d+\]/g);
     if (!indexes) {
-      if (!item.match(/^[\w\d-_]+$/)) {
+      if (!item.match(/^[^.]+$/)) {
         throw new Error('Invalid property accessor: ' + field + ' (' + item + ')');
       }
       path.push({ type: 'object', accessor: item });
@@ -29,7 +29,7 @@ const _getMetaPath = (field) => {
       }
       const first = item.replace(indexes.join(''), '');
       if (first) {
-        if (!first.match(/^[\w\d-_]+$/)) {
+        if (!first.match(/^[^.]+$/)) {
           throw new Error('Invalid property accessor: ' + field + ' (' + first + ')');
         }
         path.push({ type: 'object', accessor: first });

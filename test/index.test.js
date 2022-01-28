@@ -1,5 +1,15 @@
 import { pop, push, reverse, shift, sort, splice, unshift, merge, get, set } from '../src/index';
 
+const orderAsc = (a, b) =>
+  a > b
+    ? 1
+    : (a === b ? 0 : -1);
+
+const orderDesc = (a, b) =>
+  a < b
+    ? 1
+    : (a === b ? 0 : -1);
+
 describe('modify array', () => {
   const array = [1, 22, 3];
 
@@ -24,7 +34,8 @@ describe('modify array', () => {
   });
 
   test('sort', () => {
-    expect(sort(array, (a, b) => a < b)).toEqual([22, 3, 1]);
+    expect(sort(array, orderAsc)).toEqual([1, 3, 22]);
+    expect(sort(array, orderDesc)).toEqual([22, 3, 1]);
     expect(array).toEqual([1, 22, 3]);
   });
 
@@ -62,29 +73,36 @@ describe('modify object', () => {
     expect(get(obj, 'no')).toEqual(undefined);
   });
 
-  describe('mutate an object', () => {
-    const obj = { a: { b: 3 }, c: true };
-    expect(set(obj, 'a', false)).toEqual({ a: false, c: true });
-    expect(set(obj, 'd', 0)).toEqual({ a: { b: 3 }, c: true, d: 0 });
-    expect(set(obj, 'a.b', 1)).toEqual({ a: { b: 1 }, c: true });
-    expect(set(obj, 'd.e', 3)).toEqual({ a: { b: 3 }, c: true, d: { e: 3 } });
-    expect(set(obj, 'a.b.x', 1)).toEqual({ a: { b: { x: 1 } }, c: true });
-    expect(set(obj, 'a.b.x.y.z', 1)).toEqual({ a: { b: { x: { y: { z: 1 } } } }, c: true });
-    expect(set(obj, 'a.d[0]', 1)).toEqual({ a: { b: 3, d: [ 1 ] }, c: true });
-    expect(set(obj, 'd[1]', 2)).toEqual({ a: { b: 3 }, c: true, d: [ undefined, 2 ] });
-    expect(set(obj, 'd[0][0]', 3)).toEqual({ a: { b: 3 }, c: true, d: [ [ 3 ] ] });
-    test('does not mutate the original object', () => expect(obj).toEqual({ a: { b: 3 }, c: true }));
+  describe('mutate an object (set)', () => {
+    const obj = { a: { b: 3 }, c: true, list: ['ok'] };
+
+    expect(set(obj, 'a', false)).toEqual({ a: false, c: true, list: ['ok'] });
+    expect(set(obj, 'd', 0)).toEqual({ a: { b: 3 }, c: true, d: 0, list: ['ok'] });
+    expect(set(obj, 'a.b', 1)).toEqual({ a: { b: 1 }, c: true, list: ['ok'] });
+    expect(set(obj, 'd.e', 3)).toEqual({ a: { b: 3 }, c: true, d: { e: 3 }, list: ['ok'] });
+    expect(set(obj, 'a.b.x', 1)).toEqual({ a: { b: { x: 1 } }, c: true, list: ['ok'] });
+    expect(set(obj, 'a.b.x.y.z', 1)).toEqual({ a: { b: { x: { y: { z: 1 } } } }, c: true, list: ['ok'] });
+    expect(set(obj, 'a.d[0]', 1)).toEqual({ a: { b: 3, d: [1] }, c: true, list: ['ok'] });
+    expect(set(obj, 'd[1]', 2)).toEqual({ a: { b: 3 }, c: true, d: [undefined, 2], list: ['ok'] });
+    expect(set(obj, 'd[0][0]', 3)).toEqual({ a: { b: 3 }, c: true, d: [[3]], list: ['ok'] });
+    expect(set(obj, 'list[0]', 'ko')).toEqual({ a: { b: 3 }, c: true, list: ['ko'] });
+    expect(set(obj, 'list[1]', 'ko')).toEqual({ a: { b: 3 }, c: true, list: ['ok', 'ko'] });
+
+    // the original object is not mutated
+    expect(obj).toEqual({ a: { b: 3 }, c: true, list: ['ok'] });
   });
 
-  describe('mutate an array', () => {
-    const array = [ true, 123, ['!', '?'], { msg: 'hi' } ];
+  describe('mutate an array (set)', () => {
+    const array = [true, 123, ['!', '?'], { msg: 'hi' }];
+
     expect(set(array, '[2]', true)).toEqual([true, 123, true, { msg: 'hi' }]);
-    expect(set(array, '[5]', 'end')).toEqual([ true, 123, ['!', '?'], { msg: 'hi' }, undefined, 'end' ]);
-    expect(set(array, '[1]', 124)).toEqual([ true, 124, ['!', '?'], { msg: 'hi' } ]);
-    expect(set(array, '[2][1]', '#')).toEqual([ true, 123, ['!', '#'], { msg: 'hi' } ]);
-    expect(set(array, '[2][1].test', 'ok')).toEqual([ true, 123, ['!', { test: 'ok' }], { msg: 'hi' } ]);
-    expect(array).toEqual([ true, 123, ['!', '?'], { msg: 'hi' } ]);
-    test('does not mutate the original array', () => expect(array).toEqual([ true, 123, ['!', '?'], { msg: 'hi' } ]));
+    expect(set(array, '[5]', 'end')).toEqual([true, 123, ['!', '?'], { msg: 'hi' }, undefined, 'end']);
+    expect(set(array, '[1]', 124)).toEqual([true, 124, ['!', '?'], { msg: 'hi' }]);
+    expect(set(array, '[2][1]', '#')).toEqual([true, 123, ['!', '#'], { msg: 'hi' }]);
+    expect(set(array, '[2][1].test', 'ok')).toEqual([true, 123, ['!', { test: 'ok' }], { msg: 'hi' }]);
+
+    // the original array is not mutated
+    expect(array).toEqual([true, 123, ['!', '?'], { msg: 'hi' }]);
   });
 });
 
@@ -183,7 +201,7 @@ describe('doc examples', () => {
   test('sort', () => {
     const source = ['this', 'is', 'a', 'test'];
     const updatedA = sort(source);
-    const updatedB = sort(source, (a, b) => a < b);
+    const updatedB = sort(source, (a, b) => a < b ? 1 : -1);
 
     expect(source).toEqual(['this', 'is', 'a', 'test']);
     expect(updatedA).toEqual(['a', 'is', 'test', 'this']);

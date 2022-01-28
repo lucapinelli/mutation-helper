@@ -1,6 +1,6 @@
 {
   "name": "mutation-helper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A collection of methods to mutate objects and arrays without modifying the source.",
   "main": "build/index.js",
   "scripts": {
@@ -8,7 +8,8 @@
     "test": "jest",
     "test:watch": "jest --watchAll",
     "lint": "eslint src",
-    "lint:watch": "esw -w --clear src"
+    "lint:watch": "esw -w --clear src",
+    "audit:production": "npm audit --only=prod --audit-level=high"
   },
   "jest": {
     "transform": {
@@ -50,6 +51,6 @@
     "jest": "^21.2.1"
   },
   "dependencies": {
-    "deepmerge": "^2.0.0"
+    "deepmerge": "^4.2.2"
   }
 }
