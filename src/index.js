@@ -61,7 +61,7 @@ const set = (object, field, value) => {
   return _set(object, path, value);
 };
 const _arraySet = (array, index, value) => {
-  const mutable = [ ...array ];
+  const mutable = [...array];
   mutable[index] = value;
   return mutable;
 };
@@ -72,17 +72,17 @@ const _set = (object, path, value) => {
   const { type, accessor, next } = path.shift();
   if (path.length === 0) {
     if (type === 'object') {
-      return {...object, [accessor]: value};
+      return { ...object, [accessor]: value };
     } else {
       return _arraySet(object, accessor, value);
     }
   }
   if (!object[accessor] || typeof object[accessor] !== 'object') {
     const init = next.type === 'object' ? {} : [];
-    object = Array.isArray(object) ? _arraySet(object, accessor, init) : {...object, [accessor]: init};
+    object = Array.isArray(object) ? _arraySet(object, accessor, init) : { ...object, [accessor]: init };
   }
   const nextValue = _set(object[accessor], path, value);
-  return Array.isArray(object) ? _arraySet(object, accessor, nextValue) : {...object, [accessor]: nextValue};
+  return Array.isArray(object) ? _arraySet(object, accessor, nextValue) : { ...object, [accessor]: nextValue };
 };
 
 /**

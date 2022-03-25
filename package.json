@@ -1,6 +1,6 @@
 {
   "name": "mutation-helper",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A collection of methods to mutate objects and arrays without modifying the source.",
   "main": "build/index.js",
   "scripts": {
@@ -11,6 +11,7 @@
     "lint:watch": "esw -w --clear src",
     "audit:production": "npm audit --only=prod --audit-level=high"
   },
+  "browserslist": "> 0.25%, not dead",
   "jest": {
     "transform": {
       "^.+\\.jsx?$": "babel-jest"
@@ -37,18 +38,16 @@
   },
   "homepage": "https://github.com/lucapinelli/mutation-helper#readme",
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "eslint": "^4.9.0",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-jest": "^21.2.0",
-    "eslint-plugin-node": "^5.2.0",
-    "eslint-plugin-promise": "^3.6.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "eslint-watch": "^3.1.3",
-    "jest": "^21.2.1"
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.8",
+    "@babel/preset-env": "^7.16.11",
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jest": "^26.1.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.2.0",
+    "jest": "^27.5.1"
   },
   "dependencies": {
     "deepmerge": "^4.2.2"
