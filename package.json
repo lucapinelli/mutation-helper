@@ -1,6 +1,6 @@
 {
   "name": "mutation-helper",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A collection of methods to mutate objects and arrays without modifying the source.",
   "main": "build/index.js",
   "scripts": {
